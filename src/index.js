@@ -1,27 +1,10 @@
-const Koa = require('koa')
+const Router = require('koa-router')
+const router = new Router()
 
-const app = new Koa();
+const app = require('./app')
 
-app.listen(3001, () => {
-  console.log('listening to port 3001')
-})
+const api = require('./api')
 
-app.use((ctx, next) => {
-  console.log(ctx.url)
-  ctx.body = 'foo'
-  next()
-})
+router.use('/api', api.routes())
 
-// app.use((ctx, next) => {
-app.use(async (ctx, next) => {
-  ctx.body = ctx.body + '\nbar'
-  // next().then(() => { console.log('bar') })
-  await next().then(() => { console.log('bar') })
-})
-
-app.use(ctx => {
-  setTimeout(() => {
-    console.log('bee')
-  }, 1000)
-  console.log('fee')
-})
+app.use(router.routes()).use(router.allowedMethods())
