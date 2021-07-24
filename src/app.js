@@ -1,6 +1,6 @@
-// const path = require('path')
-// require('dotenv').config({ path: path.join(__dirname, '.env') })
-require('dotenv').config()
+const path = require('path')
+require('dotenv').config({ path: path.join('src', '.env') })
+//require('dotenv').config()
 const { MONGO_URI, PORT, } = process.env
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
