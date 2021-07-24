@@ -1,11 +1,12 @@
 module.exports = [
   {
-    script: '/koa-test-k1/src',
-    name: 'koa-test-k1',
+    env: {
+      NODE_ENV: 'production',
+    },
     exec_mode: 'cluster',
     instances: 1,
-    // node_args: '-r dotenv/config',
-    args: 'dotenv/config',
+    name: 'koa-test-k1',
+    script: '/koa-test-k1/src',
   },
   // {
   //   script: 'worker.js',
