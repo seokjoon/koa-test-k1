@@ -1,4 +1,4 @@
-const req = ctx => {
+const reqs = ctx => {
   ctx.body = {
     method: ctx.method,
     path: ctx.path,
@@ -9,14 +9,15 @@ const req = ctx => {
 
 
 exports.create = ctx => {
-  req(ctx)
+  reqs(ctx)
 }
 
 exports.delete = ctx => {
 
+
 }
 
-exports.req = ctx => req(ctx)
+exports.reqs = ctx => reqs(ctx)
 
 exports.read = ctx => {
 

@@ -1,11 +1,27 @@
+require('dotenv').config()
+const { MONGO_URI, PORT, } = process.env
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
+const mongoose = require('mongoose')
+
+
+const port = PORT || 5000
+
+
+mongoose.connect(MONGO_URI, {
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to MongoDB')
+}).catch(e => {
+  console.error(e)
+})
 
 
 const app = new Koa();
-
-app.listen(5000, () => {
-  console.log('listening to port 5000')
+app.listen((port), () => {
+  console.log('listening to port ' + port)
 })
 
 
