@@ -13,7 +13,7 @@ api.get('/bar/:bee?', ctx => {
   ctx.body = bee ? bee : ctx.body
 })
 
-api.get('/req', controller.req)
+api.get('/', controller.req)
 
 
 api.post('/foo', controller.create)

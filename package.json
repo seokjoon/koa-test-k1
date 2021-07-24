@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon 0.0.0.0:3001 --watch src/ src/index.js",
-    "startLegacy": "node src",
+    "start": "nodemon 0.0.0.0 --watch src/ src",
+    "strtLegacy": "node src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
