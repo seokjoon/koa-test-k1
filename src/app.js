@@ -5,7 +5,7 @@ const bodyParser = require('koa-bodyparser')
 const mongoose = require('mongoose')
 
 
-const port = PORT || 5000
+const port = PORT || 5000; console.log('MONGO_URI, PORT: ', MONGO_URI, PORT)
 
 
 mongoose.connect(MONGO_URI, {
