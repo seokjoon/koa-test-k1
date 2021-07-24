@@ -1,20 +1,22 @@
-exports.create = ctx => {
+const req = ctx => {
   ctx.body = {
+    method: ctx.method,
+    path: ctx.path,
+    params: ctx.params,
     body: ctx.request.body,
   }
+}
+
+
+exports.create = ctx => {
+  req(ctx)
 }
 
 exports.delete = ctx => {
 
 }
 
-exports.help = ctx => {
-  ctx.body = {
-    method: ctx.method,
-    path: ctx.path,
-    params: ctx.params,
-  }
-}
+exports.req = ctx => req(ctx)
 
 exports.read = ctx => {
 
