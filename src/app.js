@@ -1,11 +1,3 @@
-//const path = require('path')
-import path from 'path'
-//require('dotenv').config({ path: path.join(__dirname, '../.env') });
-const __dirname = path.resolve()
-import dotenv from 'dotenv'
-dotenv.config({ path: path.join(__dirname, ((process.env.NODE_ENV === 'production') ? process.env.PATH_PRODUCTION + '/.env' : './.env')) });
-
-
 //const Koa = require('koa')
 import Koa from 'koa'
 //const bodyParser = require('koa-bodyparser')
@@ -14,6 +6,12 @@ import bodyParser from 'koa-bodyparser'
 import mongoose from 'mongoose'
 
 
+//const path = require('path')
+import path from 'path'
+//require('dotenv').config({ path: path.join(__dirname, '../.env') });
+const __dirname = path.resolve()
+import dotenv from 'dotenv'
+dotenv.config({ path: path.join(__dirname, ((process.env.NODE_ENV === 'production') ? process.env.PATH_PRODUCTION + '/.env' : './.env')) });
 const { MONGO_URI, PORT, } = process.env
 const port = PORT || 5000; console.log('MONGO_URI, PORT: ', MONGO_URI, PORT)
 
