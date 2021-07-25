@@ -8,25 +8,15 @@ const reqs = ctx => {
 }
 
 
-exports.create = ctx => {
-  reqs(ctx)
-}
+//exports.create = ctx => {
+export const create = ctx => {}
 
-exports.delete = ctx => {
+export const destroy = ctx => {}
 
+export const getReq = ctx => reqs(ctx)
 
-}
+export const read = ctx => {}
 
-exports.reqs = ctx => reqs(ctx)
+export const reads = ctx => {}
 
-exports.read = ctx => {
-
-}
-
-exports.reads = ctx => {
-
-}
-
-exports.update = ctx => {
-
-}
+export const update = ctx => {}

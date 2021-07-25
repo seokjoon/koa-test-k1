@@ -1,12 +1,20 @@
-const path = require('path')
-require('dotenv').config({ path: path.join(__dirname, '../.env') }); //console.log(process.env.NODE_ENV)
+//const path = require('path')
+import path from 'path'
+//require('dotenv').config({ path: path.join(__dirname, '../.env') });
+const __dirname = path.resolve()
+import dotenv from 'dotenv'
+dotenv.config({ path: path.join(__dirname, ((process.env.NODE_ENV === 'production') ? process.env.PATH_PRODUCTION + '/.env' : './.env')) });
+
+
+//const Koa = require('koa')
+import Koa from 'koa'
+//const bodyParser = require('koa-bodyparser')
+import bodyParser from 'koa-bodyparser'
+//const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 
 const { MONGO_URI, PORT, } = process.env
-const Koa = require('koa')
-const bodyParser = require('koa-bodyparser')
-const mongoose = require('mongoose')
-
-
 const port = PORT || 5000; console.log('MONGO_URI, PORT: ', MONGO_URI, PORT)
 
 
@@ -37,15 +45,8 @@ app.use(bodyParser()) //라우터 적용 전
 // app.use(async (ctx, next) => {
 //   await next().then(() => { console.log('bar') })
 // })
-//
-// app.use((ctx, next) => {
-//   setTimeout(() => {
-//     console.log('bee')
-//   }, 1000)
-//   console.log('fee')
-//   next()
-// })
 //////// middleware END
 
 
-module.exports = app
+//module.exports = app
+export default app

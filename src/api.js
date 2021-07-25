@@ -1,6 +1,8 @@
-const Router = require('koa-router')
+//const Router = require('koa-router')
+import Router from 'koa-router'
 const api = new Router()
-const controller = require('./controller')
+//const controller = require('./controller')
+import * as controller from './controller.js'
 
 
 api.get('/foo', ctx => {
@@ -13,10 +15,10 @@ api.get('/bar/:bee?', ctx => {
   ctx.body = bee ? bee : ctx.body
 })
 
-api.get('/', controller.reqs)
-
+api.get('/', controller.getReq)
 
 api.post('/foo', controller.create)
 
 
-module.exports = api
+//module.exports = api
+export default api
