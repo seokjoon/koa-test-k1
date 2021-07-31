@@ -1,8 +1,8 @@
-import Koa from 'koa' //const Koa = require('koa')
-import path from 'path' //const path = require('path')
-import dotenv from 'dotenv' //require('dotenv').config({ path: path.join(__dirname, '../.env') });
-import mongoose from 'mongoose' //const mongoose = require('mongoose')
-import bodyParser from 'koa-bodyparser' //const bodyParser = require('koa-bodyparser')
+import Koa from 'koa'
+import path from 'path'
+import dotenv from 'dotenv'
+import mongoose from 'mongoose'
+import bodyParser from 'koa-bodyparser'
 
 
 const __dirname = path.resolve()
@@ -28,17 +28,11 @@ mongoose.connect(MONGO_URI, {
 
 
 //////// middleware BEGIN
-// app.use((ctx, next) => {
-//   next()
-// })
-//
-// app.use(async (ctx, next) => {
-//   await next().then(() => { console.log('bar') })
-// })
+// app.use((ctx, next) => { next() })
+// app.use(async (ctx, next) => { await next().then(() => { console.log('bar') }) })
 
 app.use(bodyParser()) //라우터 적용 전
-
 //////// middleware END
 
 
-export default app //module.exports = app
+export default app

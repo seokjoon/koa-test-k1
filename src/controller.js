@@ -11,7 +11,6 @@ const reqs = ctx => {
 }
 
 
-//exports.create = ctx => {
 export const create = async ctx => {
   const { content, tags, title, } = ctx.request.body
   const article = new Article({ content, tags, title })

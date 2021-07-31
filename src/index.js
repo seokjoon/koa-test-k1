@@ -1,6 +1,6 @@
-import app from './app.js' //const app = require('./app')
-import route from './route.js' //const route = require('./route')
-import Router from 'koa-router' //const Router = require('koa-router')
+import app from './app.js'
+import route from './route.js'
+import Router from 'koa-router'
 
 
 const router = new Router()
