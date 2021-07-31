@@ -1,5 +1,5 @@
-import Article from './models/Article.js'
-import seedArticleData from './data/ArticleData.js'
+import Article from '../models/Article.js'
+import articleSeed from '../seed/articleSeed.js'
 
 
 const reqs = ctx => {
@@ -18,7 +18,7 @@ export const create = async ctx => {
   try {
     await article.save()
     ctx.body = article
- } catch (e) { ctx.throw(500, e) }
+  } catch (e) { ctx.throw(500, e) }
 }
 
 export const destroy = async ctx => {
@@ -61,7 +61,7 @@ export const reads = async ctx => {
 
 export const seedArticle = ctx => {
   try {
-    seedArticleData()
+    articleSeed()
     ctx.body = 'seed'
   } catch (e) { ctx.throw(500, e) }
 }
