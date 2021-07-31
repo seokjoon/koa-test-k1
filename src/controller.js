@@ -38,19 +38,24 @@ export const read = async ctx => {
     if(!(article)) ctx.status = 404
     else ctx.body = article
   } catch (e) { ctx.throw(500, e) }
-
 }
 
 export const reads = async ctx => {
   const page = parseInt(ctx.query.page || '1', 10)
   try {
-    ctx.body = await Article.find()
+    const articles = await Article.find()
       .sort({ _id: -1 }) //sort: desc -1, asc 1
       .limit(10)
       .skip((page - 1) * 10)
       .exec()
     const count = await Article.countDocuments().exec()
     ctx.set('Last-Page', Math.ceil(count / 10))
+    ctx.body = articles
+      .map(article => article.toJSON())
+      .map(article => ({
+        ...article,
+        content: article.content.length < 50 ? article.content : article.content.slice(0, 50) + '...',
+      }))
   } catch (e) { ctx.throw(500, e) }
 }
 
