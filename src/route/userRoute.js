@@ -5,11 +5,11 @@ import * as userController from '../controller/userController.js'
 const userRoute = new Router()
 
 
-userRoute.get('/checkToken', userController.checkToken)
+userRoute.get('/usersCheckToken', userController.checkToken)
 
 
-userRoute.post('/create', userController.create)
-userRoute.post('/createToken', userController.createToken)
-userRoute.post('/destroyToken', userController.destroyToken)
+userRoute.post('/users', userController.create)
+userRoute.post('/usersCreateToken', userController.createToken)
+userRoute.post('/usersDestroyToken', userController.destroyToken)
 
 export default userRoute
