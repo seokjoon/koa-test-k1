@@ -39,7 +39,6 @@ UserSchema.methods.setPassword = async function(password) {
  * @memberOf User
  */
 UserSchema.statics.findByUsername = function (username) {
-  console.log(username)
   return this.findOne({ username })
 }
 
