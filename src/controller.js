@@ -1,4 +1,5 @@
 import Article from './models/Article.js'
+import seedArticleData from './data/ArticleData.js'
 
 
 const reqs = ctx => {
@@ -41,8 +42,22 @@ export const read = async ctx => {
 }
 
 export const reads = async ctx => {
+  const page = parseInt(ctx.query.page || '1', 10)
   try {
-    ctx.body = await Article.find().exec()
+    ctx.body = await Article.find()
+      .sort({ _id: -1 }) //sort: desc -1, asc 1
+      .limit(10)
+      .skip((page - 1) * 10)
+      .exec()
+    const count = await Article.countDocuments().exec()
+    ctx.set('Last-Page', Math.ceil(count / 10))
+  } catch (e) { ctx.throw(500, e) }
+}
+
+export const seedArticle = ctx => {
+  try {
+    seedArticleData()
+    ctx.body = 'seed'
   } catch (e) { ctx.throw(500, e) }
 }
 
