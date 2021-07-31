@@ -28,8 +28,6 @@ mongoose.connect(MONGO_URI, {
 
 
 //////// middleware BEGIN
-app.use(bodyParser()) //라우터 적용 전
-
 // app.use((ctx, next) => {
 //   next()
 // })
@@ -37,6 +35,9 @@ app.use(bodyParser()) //라우터 적용 전
 // app.use(async (ctx, next) => {
 //   await next().then(() => { console.log('bar') })
 // })
+
+app.use(bodyParser()) //라우터 적용 전
+
 //////// middleware END
 
 

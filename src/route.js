@@ -1,11 +1,12 @@
 import Router from 'koa-router' //const Router = require('koa-router')
-import * as controller from './controller.js' //const controller = require('./controller')
+import * as controller from './controller.js'
+import { checkObjectId } from './middleware/check.js' //const controller = require('./controller')
 
 
 const route = new Router()
 
 
-route.delete('/delete', controller.destroy)
+route.delete('/articles/:id', checkObjectId, controller.destroy)
 
 
 route.get('/', controller.getReq)
@@ -19,15 +20,16 @@ route.get('/', controller.getReq)
 //   ctx.body = bee ? bee : ctx.body
 // })
 
-route.get('/reads/:id', controller.read)
+// route.get('/articles/:id', controller.read)
+route.get('/articles/:id', checkObjectId, controller.read)
 
-route.get('/reads', controller.reads)
-
-
-route.post('/create', controller.create)
+route.get('/articles', controller.reads)
 
 
-route.put('/update', controller.update)
+route.post('/articles', controller.create)
+
+
+route.put('/articles/:id', checkObjectId, controller.update)
 
 
 export default route //module.exports = route
