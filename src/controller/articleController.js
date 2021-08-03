@@ -1,7 +1,6 @@
 import Article from '../models/Article.js'
 import articleSeed from '../seed/articleSeed.js'
 
-
 const reqs = ctx => {
   ctx.body = {
     method: ctx.method,
@@ -10,7 +9,6 @@ const reqs = ctx => {
     body: ctx.request.body,
   }
 }
-
 
 export const create = async ctx => {
   const { content, tags, title, } = ctx.request.body
@@ -33,30 +31,26 @@ export const getReq = ctx => reqs(ctx)
 
 export const read = async ctx => {
   const { id } = ctx.params
-  try {
-    const article = await Article.findById(id).exec()
-    if(!(article)) ctx.status = 404
-    else ctx.body = article
-  } catch (e) { ctx.throw(500, e) }
+  const article = await Article.findById(id).exec()
+  if (!(article)) ctx.status = 404
+  else ctx.body = article
 }
 
 export const reads = async ctx => {
   const page = parseInt(ctx.query.page || '1', 10)
-  try {
-    const articles = await Article.find()
-      .sort({ _id: -1 }) //sort: desc -1, asc 1
-      .limit(10)
-      .skip((page - 1) * 10)
-      .exec()
-    const count = await Article.countDocuments().exec()
-    ctx.set('Last-Page', Math.ceil(count / 10))
-    ctx.body = articles
-      .map(article => article.toJSON())
-      .map(article => ({
-        ...article,
-        content: article.content.length < 50 ? article.content : article.content.slice(0, 50) + '...',
-      }))
-  } catch (e) { ctx.throw(500, e) }
+  const articles = await Article.find()
+    .sort({ _id: -1 }) //sort: desc -1, asc 1
+    .limit(10)
+    .skip((page - 1) * 10)
+    .exec()
+  const count = await Article.countDocuments().exec()
+  ctx.set('Last-Page', Math.ceil(count / 10))
+  ctx.body = articles
+    .map(article => article.toJSON())
+    .map(article => ({
+      ...article,
+      content: article.content.length < 50 ? article.content : article.content.slice(0, 50) + '...',
+    }))
 }
 
 export const seedArticle = ctx => {
@@ -72,7 +66,7 @@ export const update = async ctx => {
     const article = await Article.findByIdAndUpdate(id, ctx.request.body, {
       new: true, //true is next val, false(default) is prev val
     }).exec()
-    if(!(article)) ctx.status = 404
+    if (!(article)) ctx.status = 404
     else ctx.body = article
   } catch (e) { ctx.throw(500, e) }
 }
