@@ -6,7 +6,7 @@ import checkMiddleware from '../middleware/checkMiddleware.js'
 const articleRoute = new Router()
 
 
-articleRoute.delete('/articles/:id', checkMiddleware.checkObjectId, articleController.destroy)
+articleRoute.delete('/articles/:id', checkMiddleware.checkObjectId, checkMiddleware.checkUserLogin, articleController.destroy)
 
 
 articleRoute.get('/', articleController.getReq) //FIXME
@@ -15,10 +15,10 @@ articleRoute.get('/articles/:id', checkMiddleware.checkObjectId, articleControll
 articleRoute.get('/articlesSeed', articleController.seedArticle)
 
 
-articleRoute.post('/articles', articleController.create)
+articleRoute.post('/articles', checkMiddleware.checkUserLogin, articleController.create)
 
 
-articleRoute.put('/articles/:id', checkMiddleware.checkObjectId, articleController.update)
+articleRoute.put('/articles/:id', checkMiddleware.checkObjectId, checkMiddleware.checkUserLogin, articleController.update)
 
 
 export default articleRoute

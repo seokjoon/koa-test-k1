@@ -13,6 +13,10 @@ export const ArticleSchema = new Schema({
   },
   tags: [],
   title: String,
+  user: {
+    _id: mongoose.Types.ObjectId,
+    username: String,
+  },
   users: [UserSchema],
 })
 

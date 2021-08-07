@@ -12,4 +12,11 @@ checkMiddleware.checkObjectId = (ctx, next) => {
 }
 
 
+checkMiddleware.checkUserLogin = (ctx, next) => {
+  if(!(ctx.state.user)) return ctx.status = 401
+  return next()
+}
+
+
+
 export default checkMiddleware

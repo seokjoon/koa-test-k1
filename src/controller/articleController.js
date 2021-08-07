@@ -17,7 +17,12 @@ const articleController = {}
 
 articleController.create = async ctx => {
   const { content, tags, title, } = ctx.request.body
-  const article = new Article({ content, tags, title })
+  const article = new Article({
+    content,
+    tags,
+    title,
+    user: ctx.state.user,
+  })
   try {
     await article.save()
     ctx.body = article
