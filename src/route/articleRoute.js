@@ -1,24 +1,45 @@
 import Router from 'koa-router'
 import articleController from '../controller/articleController.js'
-import checkMiddleware from '../middleware/checkMiddleware.js'
+import articleMiddleware from '../middleware/articleMiddleware.js'
+import userMiddleware from '../middleware/userMiddleware.js'
 
 
 const articleRoute = new Router()
 
 
-articleRoute.delete('/articles/:id', checkMiddleware.checkObjectId, checkMiddleware.checkUserLogin, articleController.destroy)
+articleRoute.delete(
+  '/articles/:id',
+  userMiddleware.checkLogin,
+  articleMiddleware.getItemById,
+  articleMiddleware.checkItemUser,
+  articleController.destroy
+)
 
 
 articleRoute.get('/', articleController.getReq) //FIXME
 articleRoute.get('/articles', articleController.reads)
-articleRoute.get('/articles/:id', checkMiddleware.checkObjectId, articleController.read)
+articleRoute.get(
+  '/articles/:id',
+  articleMiddleware.getItemById,
+  articleController.read
+)
 articleRoute.get('/articlesSeed', articleController.seedArticle)
 
 
-articleRoute.post('/articles', checkMiddleware.checkUserLogin, articleController.create)
+articleRoute.post(
+  '/articles',
+  userMiddleware.checkLogin,
+  articleController.create
+)
 
 
-articleRoute.put('/articles/:id', checkMiddleware.checkObjectId, checkMiddleware.checkUserLogin, articleController.update)
+articleRoute.put(
+  '/articles/:id',
+  userMiddleware.checkLogin,
+  articleMiddleware.getItemById,
+  articleMiddleware.checkItemUser,
+  articleController.update
+)
 
 
 export default articleRoute

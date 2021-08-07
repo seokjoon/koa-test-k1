@@ -4,10 +4,10 @@ import articleSeed from '../seed/articleSeed.js'
 
 const reqs = ctx => {
   ctx.body = {
-    method: ctx.method,
-    path: ctx.path,
-    params: ctx.params,
     body: ctx.request.body,
+    method: ctx.method,
+    params: ctx.params,
+    path: ctx.path,
   }
 }
 
@@ -43,10 +43,11 @@ articleController.getReq = ctx => reqs(ctx)
 
 
 articleController.read = async ctx => {
-  const { id } = ctx.params
-  const article = await Article.findById(id).exec()
-  if (!(article)) return ctx.status = 404
-  ctx.body = article
+  // const { id } = ctx.params
+  // const article = await Article.findById(id).exec()
+  // if (!(article)) return ctx.status = 404
+  // ctx.body = article
+  ctx.body = ctx.state.article
 }
 
 
