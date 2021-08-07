@@ -20,7 +20,9 @@ userController.create = async ctx => {
 
 
 userController.checkToken = async ctx => {
-
+  const { user } = ctx.state
+  if(!(user)) return ctx.status = 401
+  ctx.body = user
 }
 
 
@@ -40,7 +42,8 @@ userController.createToken = async function (ctx) {
 
 
 userController.destroyToken = async ctx => {
-
+  ctx.cookies.set('access_token')
+  ctx.status = 204 //no content
 }
 
 
