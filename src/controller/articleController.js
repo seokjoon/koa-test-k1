@@ -52,13 +52,19 @@ articleController.read = async ctx => {
 
 
 articleController.reads = async ctx => {
+  const { tag, username } = ctx.query
+  const query = {
+    ...(username ? { 'user.username': username } : {}),
+    ...(tag ? { tags: tag }: {}),
+  }
+
   const page = parseInt(ctx.query.page || '1', 10)
-  const articles = await Article.find()
+  const articles = await Article.find(query)
     .sort({ _id: -1 }) //sort: desc -1, asc 1
     .limit(10)
     .skip((page - 1) * 10)
     .exec()
-  const count = await Article.countDocuments().exec()
+  const count = await Article.countDocuments(query).exec()
   ctx.set('Last-Page', Math.ceil(count / 10))
   ctx.body = articles
     .map(article => article.toJSON())
