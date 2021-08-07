@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
 import { UserSchema } from './User.js'
 
+
 const { Schema } = mongoose
+
 
 export const ArticleSchema = new Schema({
   content: String,
@@ -14,6 +16,8 @@ export const ArticleSchema = new Schema({
   users: [UserSchema],
 })
 
+
 const Article = mongoose.model('Article', ArticleSchema)
+
 
 export default Article

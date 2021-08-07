@@ -1,6 +1,7 @@
 import Article from '../models/Article.js'
 import articleSeed from '../seed/articleSeed.js'
 
+
 const reqs = ctx => {
   ctx.body = {
     method: ctx.method,
@@ -10,7 +11,11 @@ const reqs = ctx => {
   }
 }
 
-export const create = async ctx => {
+
+const articleController = {}
+
+
+articleController.create = async ctx => {
   const { content, tags, title, } = ctx.request.body
   const article = new Article({ content, tags, title })
   try {
@@ -19,7 +24,8 @@ export const create = async ctx => {
   } catch (e) { ctx.throw(500, e) }
 }
 
-export const destroy = async ctx => {
+
+articleController.destroy = async ctx => {
   const { id } = ctx.params
   try {
     await Article.findByIdAndRemove(id).exec()
@@ -27,16 +33,19 @@ export const destroy = async ctx => {
   } catch (e) { ctx.throw(500, e) }
 }
 
-export const getReq = ctx => reqs(ctx)
 
-export const read = async ctx => {
+articleController.getReq = ctx => reqs(ctx)
+
+
+articleController.read = async ctx => {
   const { id } = ctx.params
   const article = await Article.findById(id).exec()
-  if (!(article)) ctx.status = 404
-  else ctx.body = article
+  if (!(article)) return ctx.status = 404
+  ctx.body = article
 }
 
-export const reads = async ctx => {
+
+articleController.reads = async ctx => {
   const page = parseInt(ctx.query.page || '1', 10)
   const articles = await Article.find()
     .sort({ _id: -1 }) //sort: desc -1, asc 1
@@ -53,20 +62,25 @@ export const reads = async ctx => {
     }))
 }
 
-export const seedArticle = ctx => {
+
+articleController.seedArticle = ctx => {
   try {
     articleSeed()
     ctx.body = 'seed'
   } catch (e) { ctx.throw(500, e) }
 }
 
-export const update = async ctx => {
+
+articleController.update = async ctx => {
   const { id } = ctx.params
   try {
     const article = await Article.findByIdAndUpdate(id, ctx.request.body, {
       new: true, //true is next val, false(default) is prev val
     }).exec()
-    if (!(article)) ctx.status = 404
-    else ctx.body = article
+    if (!(article)) return ctx.status = 404
+    ctx.body = article
   } catch (e) { ctx.throw(500, e) }
 }
+
+
+export default articleController

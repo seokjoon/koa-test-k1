@@ -16,6 +16,7 @@ app.listen((port), () => {
   console.log('listening to port ' + port)
 })
 
+
 mongoose.connect(MONGO_URI, {
   useFindAndModify: false,
   useNewUrlParser: true,
@@ -30,7 +31,6 @@ mongoose.connect(MONGO_URI, {
 //////// middleware BEGIN
 // app.use((ctx, next) => { next() })
 // app.use(async (ctx, next) => { await next().then(() => { console.log('bar') }) })
-
 app.use(bodyParser()) //라우터 적용 전
 //////// middleware END
 
