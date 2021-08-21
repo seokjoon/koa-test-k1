@@ -4,6 +4,13 @@ import User from '../models/User.js'
 const userController = {}
 
 
+userController.checkToken = async ctx => {
+  const { user } = ctx.state
+  if(!(user)) return ctx.status = 401
+  ctx.body = user
+}
+
+
 userController.create = async ctx => {
   const { username, password, } = ctx.request.body
   try {
@@ -16,13 +23,6 @@ userController.create = async ctx => {
 
     userController.setToken(ctx, user)
   } catch (e) { ctx.throw(500, e) }
-}
-
-
-userController.checkToken = async ctx => {
-  const { user } = ctx.state
-  if(!(user)) return ctx.status = 401
-  ctx.body = user
 }
 
 
@@ -53,6 +53,7 @@ userController.setToken = function (ctx, user) {
     maxAge: 1000 * 60 * 60 * 24 * 7, //7일
     httpOnly: true,
   })
+
   return token
 }
 
