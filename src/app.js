@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import bodyParser from 'koa-bodyparser'
 import jwtMiddleware from './middleware/jwtMiddleware.js'
+import cors from '@koa/cors'
 
 
 const __dirname = path.resolve()
@@ -13,6 +14,11 @@ const port = PORT || 5000; console.log('MONGO_URI, PORT: ', MONGO_URI, PORT)
 const app = new Koa();
 
 
+app.proxy = true
+app.use(cors({
+  credentials: true,
+  origin: '*', //process.env.HOST,
+}))
 app.listen((port), () => {
   console.log('listening to port ' + port)
 })

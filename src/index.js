@@ -10,3 +10,6 @@ const router = new Router()
 router.use('/api', aritcleRoute.routes())
 router.use('/api', userRoute.routes())
 app.use(router.routes()).use(router.allowedMethods())
+
+
+
