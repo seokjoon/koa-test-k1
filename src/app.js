@@ -17,7 +17,7 @@ const app = new Koa();
 app.proxy = true
 app.use(cors({
   credentials: true,
-  origin: '*', //process.env.HOST,
+  origin: process.env.HOST, //origin: '*', //origin: true,
 }))
 app.listen((port), () => {
   console.log('listening to port ' + port)
