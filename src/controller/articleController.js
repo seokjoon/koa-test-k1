@@ -58,11 +58,13 @@ articleController.reads = async ctx => {
     ...(tag ? { tags: tag }: {}),
   }
 
-  const page = parseInt(ctx.query.page || '1', 10)
+  const page = parseInt(ctx.query.page || 1)
+  const limit = parseInt(ctx.query.limit || 10)
+
   const articles = await Article.find(query)
     .sort({ _id: -1 }) //sort: desc -1, asc 1
-    .limit(10)
-    .skip((page - 1) * 10)
+    .limit(limit)
+    .skip((page - 1) * limit)
     .exec()
   const count = await Article.countDocuments(query).exec()
   ctx.set('Last-Page', Math.ceil(count / 10))
