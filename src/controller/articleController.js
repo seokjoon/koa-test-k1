@@ -51,7 +51,7 @@ articleController.read = async ctx => {
 }
 
 
-articleController.reads = async ctx => {
+articleController.reads = async ctx => { // console.log(ctx.query)
   const { tag, username } = ctx.query
   const query = {
     ...(username ? { 'user.username': username } : {}),
