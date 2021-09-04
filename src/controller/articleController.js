@@ -71,7 +71,7 @@ articleController.reads = async ctx => { // console.log(ctx.query)
     .map(article => article.toJSON())
     .map(article => ({
       ...article,
-      content: article.content.length < 50 ? article.content : article.content.slice(0, 50) + '...',
+      content: ((!(Array.isArray(article.content))) || (article.content.length < 50)) ? article.content : article.content.slice(0, 50) + '...',
     }))
 }
 
