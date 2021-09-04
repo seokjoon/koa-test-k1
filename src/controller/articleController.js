@@ -52,12 +52,11 @@ articleController.read = async ctx => {
 
 
 articleController.reads = async ctx => { // console.log(ctx.query)
-  const { tag, username } = ctx.query
+  const { tag, username } = ctx.query; //console.log(ctx.query)
   const query = {
     ...(username ? { 'user.username': username } : {}),
     ...(tag ? { tags: tag }: {}),
   }
-
   const page = parseInt(ctx.query.page || 1)
   const limit = parseInt(ctx.query.limit || 10)
 
