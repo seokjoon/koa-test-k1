@@ -1,6 +1,18 @@
 import Article from '../models/Article.js'
 import articleSeed from '../seed/articleSeed.js'
+import sanitizedHtml from 'sanitize-html'
 
+
+const fixHtml = content => {
+  const filtered = sanitizedHtml(content, { allowedTags: [], })
+  return ((filtered.length < 200) ? (filtered) : (filtered.slice(0, 200) + '...'))
+}
+
+const fixHtmlOption = {
+  allowedTags: [],
+  allowedAttributes: [],
+  allowedSchemes: [],
+}
 
 const reqs = ctx => {
   ctx.body = {
@@ -18,7 +30,7 @@ const articleController = {}
 articleController.create = async ctx => {
   const { content, tags, title, } = ctx.request.body
   const article = new Article({
-    content,
+    content: fixHtml(content, fixHtmlOption),
     tags,
     title,
     user: ctx.state.user,
@@ -71,8 +83,9 @@ articleController.reads = async ctx => { // console.log(ctx.query)
     .map(article => article.toJSON())
     .map(article => ({
       ...article,
-      content: ((!(Array.isArray(article.content))) || (article.content.length < 50)) ? article.content : article.content.slice(0, 50) + '...',
-    }))
+      // content: ((!(Array.isArray(article.content))) || (article.content.length < 50)) ? article.content : article.content.slice(0, 50) + '...',
+      content: fixHtml(article.content)
+  }))
 }
 
 
@@ -87,7 +100,10 @@ articleController.seedArticle = ctx => {
 articleController.update = async ctx => {
   const { id } = ctx.params
   try {
-    const article = await Article.findByIdAndUpdate(id, ctx.request.body, {
+    const dataNext = { ...ctx.request.body }
+    if(dataNext.content) dataNext.content = fixHtml(dataNext.content)
+    //const article = await Article.findByIdAndUpdate(id, ctx.request.body, {
+    const article = await Article.findByIdAndUpdate(id, dataNext, {
       new: true, //true is next val, false(default) is prev val
     }).exec()
     if (!(article)) return ctx.status = 404
