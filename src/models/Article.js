@@ -8,8 +8,8 @@ const { Schema } = mongoose
 export const ArticleSchema = new Schema({
   content: String,
   dateCreate: {
-    type: Date,
     default: Date.now,
+    type: Date,
   },
   tags: [],
   title: String,

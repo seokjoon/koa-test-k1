@@ -7,7 +7,7 @@ const jwtMiddleware = async (ctx, next) => {
   const token = ctx.cookies.get('access_token')
   if(!(token)) return next()
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); console.log(decoded)
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); //console.log(decoded)
     ctx.state.user = {
       _id: decoded._id,
       username: decoded.username,

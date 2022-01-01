@@ -12,7 +12,7 @@ userController.checkToken = async ctx => {
 
 
 userController.create = async ctx => {
-  const { username, password, } = ctx.request.body
+  const { password, username, } = ctx.request.body
   try {
     const isExist = await User.findByUsername(username)
     if (isExist) return ctx.status = 409 //conflict
