@@ -89,9 +89,9 @@ articleController.reads = async ctx => { // console.log(ctx.query)
 }
 
 
-articleController.seedArticle = ctx => {
+articleController.seedArticle = async ctx => {
   try {
-    articleSeed()
+    await articleSeed()
     ctx.body = 'seed'
   } catch (e) { ctx.throw(500, e) }
 }
